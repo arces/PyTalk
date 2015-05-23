@@ -1,1 +1,24 @@
-__author__ = 'star'
+import sys
+import socket
+import time
+
+#create a socket object
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# get local machine name
+host = socket.gethostbyname()
+
+port = 1337
+
+# bind to the port
+serversocket.bind((host, port))
+
+# queue up to 5 requests
+serversocket.listen(5)
+
+while True:
+        clientsocket,addr = serversocket.appept()
+        print("Got a connection from %s" % str(addr))
+        currentTime = time.ctime(time.time()) + "\r\n"
+        clientsocket.send(currentTime.encode('ascii'))
+        clientsocket.close()
